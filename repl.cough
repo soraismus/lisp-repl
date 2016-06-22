@@ -1,0 +1,15 @@
+_repl      = require '../mhlisp-copy/src/_repl'
+readPrompt = require './readPrompt'
+
+display = \values ->
+  result = values[-1]
+  values[0 .. -1].forEach \value -> console.log(value.value)
+
+if ? process && process.argv.length > 2
+  fileName = process.argv[2]
+  file = require('fs').readFileSync(fileName).toString()
+  display (_repl (file, process.argv[3..]))
+  process.exit 0
+
+loop
+  display (_repl (readPrompt ()))
