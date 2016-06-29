@@ -1,4 +1,4 @@
-_repl      = require '../mhlisp-copy/src/_repl'
+interpret  = require '../mhlisp-copy/src/interpret'
 readPrompt = require './readPrompt'
 
 display = \values ->
@@ -8,8 +8,8 @@ display = \values ->
 if ? process && process.argv.length > 2
   fileName = process.argv[2]
   file = require('fs').readFileSync(fileName).toString()
-  display (_repl (file, process.argv[3..]))
+  display (interpret (file, process.argv[3..]))
   process.exit 0
 
 loop
-  display (_repl (readPrompt ()))
+  display (interpret (readPrompt ()))
